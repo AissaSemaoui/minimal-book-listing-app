@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.head-sm {
+  display: none;
+}
+
+.logo-lg {
+  height: 150px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.controls {
+  width: 95%;
+  margin: auto;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: var(--mantine-spacing-xl);
+  border: 2px solid var(--mantine-color-gray-8);
+  background-color: var(--mantine-color-gray-0);
+}
+
+.table-wrapper {
+  width: 95%;
+  max-width: 100%;
+  margin: auto;
+  overflow-x: auto;
+}
+
+th,
+td,
+table {
+  border-color: var(--mantine-color-gray-5) !important;
+  border-width: 2px !important;
+  min-width: max-content !important;
+}
+
+td {
+  width: fit-content;
+  max-width: 200px;
+}
+
+.isbn-search-label {
+  font-weight: bold;
+  font-size: 24px;
+  color: var(--mantine-color-gray-7);
+}
+
+.input {
+  min-width: 300px;
+  width: 100%;
+  max-width: 100%;
+}
+.input-root {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+@media (max-width: 968px) {
+  .input-root {
+    display: block;
+  }
+}
+
+@media (max-width: 778px) {
+  .head-sm {
+    display: block;
+  }
+  .head-lg {
+    display: none;
+  }
+}
