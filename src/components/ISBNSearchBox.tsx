@@ -4,7 +4,6 @@ import useFetchBooks from "../hooks/useFetchBooks";
 import { ErrorT, SetError } from "../App";
 
 interface ISBNSearchBoxProps {
-  // searchISBN: (ISBN: string) => Promise<void>;
   setError: SetError;
   error: ErrorT;
   createNewRow: Function;
@@ -42,22 +41,8 @@ const ISBNSearchBox = ({
     if (event.code === "Enter") handleSearch();
   };
 
-  // useEffect(() => {
-  //   window.addEventListener("keyup", (event) => {
-  //     if (event.code === "Space") {
-  //       searchInputRef?.current?.focus();
-  //     }
-  //   });
-  //   return () =>
-  //     window.removeEventListener("keyup", (event) => {
-  //       if (event.code === "Space") {
-  //         searchInputRef?.current?.focus();
-  //       }
-  //     });
-  // });
-
   return (
-    <Stack>
+    <Stack my="xl">
       <Flex align="center" gap="xs">
         <TextInput
           ref={searchInputRef}

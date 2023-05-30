@@ -1,10 +1,9 @@
 import "./App.css";
 import { Flex, Stack } from "@mantine/core";
 import Actions from "./components/Actions";
-import BookInfoForm from "./components/BookInfoForm";
 import ISBNSearchBox from "./components/ISBNSearchBox";
 import ContentTable from "./components/ContentTable";
-import { useTableDataContext } from "./context/TableDataContext";
+import { TableData, useTableDataContext } from "./context/TableDataContext";
 import { useEffect, useState } from "react";
 import { setTableDataToStorage } from "./helpers/localstorage";
 import Header from "./components/Header";
@@ -19,15 +18,6 @@ type NewBookInfo = {
   ISBN: string;
 };
 
-type NewFormInfo = {
-  SKU: { SKU_1?: string; SKU_2?: string; SKU_3?: number };
-  price: number;
-  freeShipping: boolean;
-  shippingCost: number;
-  condition: string;
-  conditionNotes: string;
-};
-
 export type DeleteBookRow = (ISBN: string) => void;
 
 export type InputsFlowRef = { current: React.RefObject<HTMLInputElement[]> };
@@ -35,7 +25,6 @@ export type InputsFlowRef = { current: React.RefObject<HTMLInputElement[]> };
 function App() {
   const { tableData, setTableData } = useTableDataContext();
   const [error, setError] = useState<ErrorT>("");
-  const [submit, setSubmit] = useState<boolean>(false);
 
   const createNewRow = (newBookInfo: NewBookInfo) => {
     let { rows } = tableData;
@@ -47,72 +36,17 @@ function App() {
       rows.unshift({
         title: newBookInfo.title,
         author: newBookInfo.author || "",
-        format: newBookInfo.format || "",
         ISBN: newBookInfo.ISBN,
       });
 
-    setTableData((prev) => ({
-      ...prev,
-      selectedRows: [rows[0].ISBN],
+    const newTableData: TableData = {
+      ...tableData,
       rows: [...rows],
-    }));
+    };
 
-    setSubmit(true);
-  };
+    setTableData(newTableData);
 
-  const updateTableFormData = (
-    newFormInfo: NewFormInfo,
-    isAssignButton: boolean
-  ) => {
-    let { selectedRows, lastSKU3, rows } = tableData;
-
-    selectedRows.reverse().forEach((selectedISBN) => {
-      const currentRow =
-        rows.find((row) => row.ISBN === selectedISBN) || rows[0];
-      if (!isAssignButton || (isAssignButton && !!newFormInfo.SKU.SKU_3)) {
-        lastSKU3++;
-        newFormInfo.SKU.SKU_3 = lastSKU3;
-        currentRow.SKU = [
-          newFormInfo.SKU.SKU_1,
-          newFormInfo.SKU.SKU_2,
-          newFormInfo.SKU.SKU_3,
-        ]
-          .filter(Boolean)
-          .join("-");
-      }
-
-      Object.keys(newFormInfo).forEach((property) => {
-        switch (property) {
-          case "price":
-            currentRow[property] = newFormInfo[property];
-            break;
-          case "condition":
-            currentRow[property] = newFormInfo[property];
-            break;
-          case "conditionNotes":
-            currentRow[property] = newFormInfo[property];
-            break;
-          case "shippingCost":
-            if (!newFormInfo.freeShipping)
-              currentRow[property] = newFormInfo[property];
-            else currentRow[property] = 0;
-            break;
-          case "freeShipping":
-            currentRow[property] = newFormInfo[property];
-            break;
-        }
-      });
-    });
-
-    setTableData((prev) => ({
-      ...prev,
-      lastSKU3,
-      rows: [...rows],
-    }));
-
-    setTableDataToStorage(tableData);
-
-    return tableData;
+    setTableDataToStorage(newTableData);
   };
 
   const deleteBookRow = (ISBN: string): void => {
@@ -150,14 +84,6 @@ function App() {
               createNewRow={createNewRow}
             />
             <Actions />
-          </Stack>
-          <Stack>
-            <Header className="head-sm" />
-            <BookInfoForm
-              submit={submit}
-              setSubmit={setSubmit}
-              updateTableFormData={updateTableFormData}
-            />
           </Stack>
         </Flex>
       </header>

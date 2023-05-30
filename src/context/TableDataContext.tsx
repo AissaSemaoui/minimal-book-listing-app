@@ -10,9 +10,6 @@ import { getTableDataFromStorage } from "../helpers/localstorage";
 
 //? Types
 export interface TableData {
-  allRowsSelected: boolean;
-  selectedRows: string[];
-  lastSKU3: number;
   rows: Rows[];
 }
 export type SetTableData = React.Dispatch<React.SetStateAction<TableData>>;
@@ -21,9 +18,6 @@ export type SetTableData = React.Dispatch<React.SetStateAction<TableData>>;
 const TableDataContext = createContext({});
 
 export const DEFAULT_TABLE_DATA: TableData = {
-  allRowsSelected: false,
-  selectedRows: [],
-  lastSKU3: 0,
   rows: [],
 };
 

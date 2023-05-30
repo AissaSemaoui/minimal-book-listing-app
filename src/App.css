@@ -4,10 +4,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-.head-sm {
-  display: none;
-}
-
 .logo-lg {
   height: 150px;
   width: 100%;
@@ -66,14 +62,5 @@ td {
 @media (max-width: 968px) {
   .input-root {
     display: block;
-  }
-}
-
-@media (max-width: 778px) {
-  .head-sm {
-    display: block;
-  }
-  .head-lg {
-    display: none;
   }
 }

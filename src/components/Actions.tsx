@@ -15,29 +15,11 @@ const Actions = () => {
     const headers = {
       title: "Title",
       author: "Author",
-      format: "Format",
-      SKU: "SKU",
-      price: "Price",
-      freeShipping: "Free Shipping",
-      shippingCost: "Shipping Cost",
-      condition: "Condition",
-      conditionNotes: "Condition Notes",
       ISBN: "ISBN",
     };
 
     const dataToParse = {
-      fields: [
-        "title",
-        "author",
-        "format",
-        "SKU",
-        "price",
-        "freeShipping",
-        "shippingCost",
-        "condition",
-        "conditionNotes",
-        "ISBN",
-      ],
+      fields: ["title", "author", "ISBN"],
       data: [headers, ...tableData.rows],
     };
 
@@ -52,10 +34,7 @@ const Actions = () => {
 
   const handleReset = () => {
     const resetObject: TableData = {
-      lastSKU3: tableData.lastSKU3,
       rows: [],
-      selectedRows: [],
-      allRowsSelected: false,
     };
 
     setTableData(resetObject);

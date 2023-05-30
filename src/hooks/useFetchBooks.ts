@@ -4,7 +4,6 @@ import { SetError } from "../App";
 interface Book {
   title: string;
   author?: string;
-  format?: string;
 }
 
 const useFetchBooks = () => {
@@ -30,7 +29,6 @@ const useFetchBooks = () => {
 
       const extracetdData = {
         title: bookDetails?.full_title || bookDetails?.title,
-        format: bookDetails?.physical_format,
         author: bookDetails?.authors
           .map((author: { name: string }) => author?.name)
           .join(", "),
